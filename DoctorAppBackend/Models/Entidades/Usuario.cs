@@ -11,5 +11,7 @@ namespace Models.Entidades
         public int Id { get; set; }
         public string Username { get; set; }
 
+        public byte[] PasswordHash { get; set; } // Almacena el hash de la contraseña
+        public byte[] PasswordSalt { get; set; } // Almacena la sal utilizada para hashear la contraseña
     }
 }

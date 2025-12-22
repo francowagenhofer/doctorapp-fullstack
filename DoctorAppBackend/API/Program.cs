@@ -1,5 +1,11 @@
+using API.Extensiones;
 using Data;
+using Data.Interfaces;
+using Data.Servicios;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,17 +15,14 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-// Configurar Swagger
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
-// Configurar el DbContext con SQL Server
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(o =>
-    o.UseSqlServer(connectionString));
+// --  Extensiones de servicios ---
+// Sirve para agregar los servicios de la aplicación definidos en la extensión
+builder.Services.AgregarServiciosAplicacion(builder.Configuration); 
 
-// Configurar CORS para permitir solicitudes desde cualquier origen (Angular en este caso)
-builder.Services.AddCors();
+// Sirve para agregar los servicios de identidad definidos en la extensión
+builder.Services.AgregarServiciosIdentidad(builder.Configuration);
+// -- Fin extensiones de servicios ---
 
 
 var app = builder.Build();
@@ -41,6 +44,7 @@ app.UseCors(x =>
            .AllowAnyMethod();
 });
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

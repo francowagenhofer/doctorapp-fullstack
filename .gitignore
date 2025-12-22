@@ -9,10 +9,16 @@ obj/
 # Logs
 *.log
 
-# Node / Angular (cuando lo agregues)
+# Node / Angular
 node_modules/
 dist/
 .angular/
+npm-debug.log*
 
-# Environment files
+# Environment
 .env
+
+# Secrets / env
+appsettings.Development.json
+appsettings.*.Development.json
+appsettings.Local.json
