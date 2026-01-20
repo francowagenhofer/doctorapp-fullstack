@@ -3,14 +3,15 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace API.Extensiones
 {
+    // Clase de extensión para agregar servicios de identidad
+    // Sirve para organizar y modularizar la configuración de servicios relacionados con la identidad
+    // Se invoca en Program.cs
     public static class ServicioIdentidadExtension
     {
         public static IServiceCollection AgregarServiciosIdentidad(this IServiceCollection servicios, IConfiguration config)
         {
             // Aquí puedes agregar servicios relacionados con la identidad, autenticación y autorización
             // Por ejemplo, puedes configurar Identity, JWT, políticas de autorización, etc.
-
-
 
             // Configurar la autenticación con JWT Bearer 
             servicios.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

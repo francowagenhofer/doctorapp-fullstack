@@ -2,6 +2,6 @@
 
 export const environment = {
     production: false,
-    apiUrl: 'http://localhost:5069/api', // ruta de backend para desarrollo
+    apiUrl: 'http://localhost:5069/api/', // ruta de backend para desarrollo
 
 }

@@ -1,11 +1,6 @@
 using API.Extensiones;
-using Data;
-using Data.Interfaces;
-using Data.Servicios;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
+using API.Middleware;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +23,14 @@ builder.Services.AgregarServiciosIdentidad(builder.Configuration);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
+// Middleware personalizado para manejar excepciones globalmente
+app.UseMiddleware<ExceptionMiddleware>();
+
+// Manejo de páginas de estado para errores HTTP
+app.UseStatusCodePagesWithReExecute("/errores/{0}"); // Redirige las respuestas de error a un controlador específico
+
+// Configuración de Swagger solo en desarrollo
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();

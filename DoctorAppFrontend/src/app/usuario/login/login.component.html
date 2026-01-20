@@ -1,1 +1,59 @@
-<p>login works!</p>
+<!--  Diseño de la página de inicio de sesión de usuario -->
+
+<section class="login-container">
+    <div class="login-wrapper">
+        <!-- Panel izquierdo con branding -->
+        <div class="login-panel-left">
+            <div class="left-content">
+                <!-- <img class="app-logo" ngSrc="/DoctorApp.png" width="280" height="92" alt="doctorApp"> -->
+                <!-- <img class="app-logo" ngSrc="/doctor.png" width="280" height="200" [style.border-radius]="'12px'" alt="doctorApp"> -->
+                <!-- <img class="app-logo" ngSrc="/logo.png" width="280" height="250" [style.border-radius]="'12px'" alt="doctorApp"> -->
+                <!-- <img class="app-logo" ngSrc="/logo2.png" width="280" height="250" [style.border-radius]="'12px'" alt="doctorApp"> -->
+                <!-- <img class="app-logo" ngSrc="/logo3.png" width="280" height="250" [style.border-radius]="'12px'" alt="doctorApp"> -->
+                <img class="app-logo" ngSrc="/logo4.png" width="280" height="250" [style.border-radius]="'12px'" alt="doctorApp">
+                <div class="brand-divider"></div>
+                <p class="brand-message">Un sistema clínico confiable y eficaz es la base de la atención centrada en el paciente.</p>
+                <div class="brand-accent"></div>
+            </div>
+        </div>
+
+        <!-- Panel derecho con formulario -->
+        <div class="login-panel-right">
+            <div class="form-container">
+                <div class="welcome-section">
+                    <h1 class="welcome-title">Bienvenido</h1>
+                    <p class="welcome-subtitle">Accede a tu cuenta</p>
+                </div>
+
+                <form [formGroup]="formLogin" (ngSubmit)="iniciarSesion()" class="login-form">
+                    <div class="form-group">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Usuario</mat-label>
+                            <input formControlName="username" matInput autocomplete="off">
+                            <mat-icon matPrefix>person</mat-icon>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-group">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Contraseña</mat-label>
+                            <input [type]="ocultarPassword ? 'password' : 'text'" formControlName="password"
+                                 matInput autocomplete="off">
+                            <button mat-icon-button matSuffix (click)="ocultarPassword = !ocultarPassword"
+                                type="button" class="password-toggle">
+                                <mat-icon>{{ocultarPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+
+                    <button class="login-btn" type="submit" [disabled]="formLogin.invalid">
+                        <span>Iniciar Sesión</span>
+                        <mat-icon class="btn-icon">arrow_forward</mat-icon>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<mat-progress-bar mode="indeterminate" *ngIf="mostrarLoading" class="loading-bar"></mat-progress-bar>
