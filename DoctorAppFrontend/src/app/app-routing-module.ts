@@ -11,7 +11,8 @@ const routes: Routes = [
     path: 'login', component: LoginComponent, pathMatch: 'full' // ruta para el login
   },
   {
-    path: 'layout', component: LayoutComponent, pathMatch: 'full' // ruta para el layout principal
+    path: 'layout', 
+    loadChildren: () => import('./compartido/compartido-module').then(m => m.CompartidoModule) // ruta para el layout compartido
   },
   {
     path: '**', redirectTo: '', pathMatch: 'full' // ruta comodin, redirige a la ruta principal

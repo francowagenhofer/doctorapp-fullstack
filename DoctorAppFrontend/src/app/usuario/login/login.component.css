@@ -168,7 +168,8 @@
 .login-btn {
     width: 100%;
     padding: 12px 24px;
-    background: linear-gradient(135deg, #4db6a8 0%, #5a8fa3 50%, #7b68a6 100%);
+    /* background: linear-gradient(135deg, #4db6a8 0%, #5a8fa3 50%, #7b68a6 100%); */
+    background: linear-gradient(135deg, #3d959be6 0%);
     color: white;
     border: none;
     border-radius: 6px;

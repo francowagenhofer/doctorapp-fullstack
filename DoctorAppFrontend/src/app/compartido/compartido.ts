@@ -30,7 +30,7 @@ export class Compartido {
   }
 
   // metodo para obtener la sesion del usuario desde el almacenamiento local
-  obetenerSesion(sesion: Sesion) {
+  obetenerSesion() {
     const sesionString = localStorage.getItem('usuarioSesion'); // Obtener la cadena JSON
     const usuarioToken = JSON.parse(sesionString!); // Convertir de cadena JSON a objeto
     

@@ -3,8 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
-import {  HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { UsuarioModule } from './usuario/usuario-module';
+import { EspecialidadModule } from './especialidad/especialidad-module';
+import { MedicoModule } from './medico/medico-module';
+import { authInterceptor } from './compartido/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -14,10 +17,13 @@ import { UsuarioModule } from './usuario/usuario-module';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    UsuarioModule
+    UsuarioModule,
+    EspecialidadModule,
+    MedicoModule
   ],
   providers: [
-    provideBrowserGlobalErrorListeners()
+    provideBrowserGlobalErrorListeners(),
+    provideHttpClient(withInterceptors([authInterceptor]))
   ],
   bootstrap: [App]
 })

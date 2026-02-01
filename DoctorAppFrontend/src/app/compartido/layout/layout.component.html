@@ -1,1 +1,65 @@
-<p>layout works!</p>
+<mat-toolbar color="primary">
+    <!-- <span class="app-title">Salud Integral - Sistema de Gestión Clínica</span> -->
+    <span class="app-title">Salud Integral</span>
+
+    <button mat-icon-button (click)="sidenav.toggle();">
+        <mat-icon>menu</mat-icon>
+    </button>
+
+    <span style="flex: 1 1 auto;"></span>
+
+    <label style="font-size: 14px; margin-right: 20px;">{{username}}</label>
+
+    <button mat-icon-button (click)="cerrarSesion();">
+        <mat-icon>logout</mat-icon>
+    </button>
+
+</mat-toolbar>
+
+<mat-sidenav-container>
+    <mat-sidenav #sidenav opened mode="side">
+        <mat-nav-list>
+
+            <mat-list-item routerLink="/layout/dashboard">
+                <mat-icon matListItemIcon style="color: white;">dashboard</mat-icon>
+                <div matListItemTitle style="color: white;">Dashboard</div>
+            </mat-list-item>
+            <mat-list-item routerLink="/layout/especialidades"> 
+                <mat-icon matListItemIcon style="color: white;">category</mat-icon>
+                <div matListItemTitle style="color: white;">Especialidades</div>
+            </mat-list-item>
+            <mat-list-item routerLink="/layout/medicos">
+                <mat-icon matListItemIcon style="color: white;">group_add</mat-icon>
+                <div matListItemTitle style="color: white;">Médicos</div>
+            </mat-list-item>
+            <mat-list-item>
+                <mat-icon matListItemIcon style="color: white;">folder_shared</mat-icon>
+                <div matListItemTitle style="color: white;">Historial Clínico</div>
+            </mat-list-item>
+
+
+            
+            <mat-list-item>
+                <mat-icon matListItemIcon style="color: white;">event</mat-icon>
+                <div matListItemTitle style="color: white;">Citas</div>
+            </mat-list-item>
+            <mat-list-item>
+                <mat-icon matListItemIcon style="color: white;">medical_services</mat-icon>
+                <div matListItemTitle style="color: white;">Servicios</div>
+            </mat-list-item>
+            <mat-list-item>
+                <mat-icon matListItemIcon style="color: white;">people</mat-icon>
+                <div matListItemTitle style="color: white;">Pacientes</div>
+            </mat-list-item>
+            
+            <!-- <mat-divider></mat-divider> -->
+        
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <div>
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

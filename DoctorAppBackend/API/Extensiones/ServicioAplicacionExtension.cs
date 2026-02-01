@@ -1,10 +1,15 @@
 ﻿using API.Errores;
+using BLL.Servicios;
+using BLL.Servicios.Interfaces;
 using Data;
 using Data.Interfaces;
+using Data.Interfaces.IRepositorio;
+using Data.Repositorio;
 using Data.Servicios;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Utilidades;
 
 namespace API.Extensiones
 {
@@ -80,6 +85,15 @@ namespace API.Extensiones
                     return new BadRequestObjectResult(errorResponse); 
                 };
             });
+
+  
+            servicios.AddScoped<IUnidadTrabajo, UnidadTrabajo>();
+            
+            // Configurar AutoMapper - Se especifica explícitamente el Assembly para evitar ambigüedad
+            servicios.AddAutoMapper(new[] { typeof(MappingProfile).Assembly });
+            
+            servicios.AddScoped<IEspecialidadServicio, EspecialidadServicio>();
+            servicios.AddScoped<IMedicoServicio, MedicoServicio>();
 
 
             return servicios;

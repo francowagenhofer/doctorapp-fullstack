@@ -1,0 +1,27 @@
+﻿using AutoMapper;
+using Models.DTOs;
+using Models.Entidades;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Utilidades
+{
+    public class MappingProfile: Profile
+    {
+        // Clase de configuración de mapeo de AutoMapper
+        // Sirve para definir cómo se mapean las entidades a los DTOs y viceversa
+        //Ejemplo: Mapeo de Especialidad a EspecialidadDTO con conversión de bool a int para el campo Estado
+        public MappingProfile()
+        {
+            CreateMap<Especialidad, EspecialidadDTO>()
+                .ForMember(d => d.Estado, m => m.MapFrom(o => o.Estado == true ? 1 : 0));
+
+            CreateMap<Medico, MedicoDTO>()
+                .ForMember(d => d.Estado, m => m.MapFrom(o => o.Estado == true ? 1 : 0))
+                .ForMember(d => d.NombreEspecialidad, m => m.MapFrom(o => o.Especialidad.NombreEspecialidad));
+        }
+    }
+}
