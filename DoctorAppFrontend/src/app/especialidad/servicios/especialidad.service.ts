@@ -4,6 +4,7 @@ import { environment } from '../../../Environments/environments';
 import { Observable } from 'rxjs';
 import { ApiResponse } from '../../interfaces/api-response';
 import { Especialidad } from '../interfaces/especialidad';
+import { CookieService } from 'ngx-cookie-service';
 
 // Servicio para gestionar las operaciones relacionadas con especialidades médicas
 // Proporciona métodos para listar, crear, editar y eliminar especialidades
@@ -21,7 +22,7 @@ export class EspecialidadService {
   // en el servidor usa /api/especialidad en lugar de /api/especialidades
   baseUrl: string = environment.apiUrl + 'especialidad/';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private cookieService: CookieService) {}
   
   lista() : Observable<ApiResponse> {
     return this.http.get<ApiResponse>(`${this.baseUrl}`);

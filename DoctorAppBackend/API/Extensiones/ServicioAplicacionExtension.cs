@@ -94,6 +94,7 @@ namespace API.Extensiones
             
             servicios.AddScoped<IEspecialidadServicio, EspecialidadServicio>();
             servicios.AddScoped<IMedicoServicio, MedicoServicio>();
+            servicios.AddScoped<IHistoriaClinicaServicio, HistoriaClinicaServicio>();
 
 
             return servicios;

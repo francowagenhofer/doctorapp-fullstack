@@ -42,8 +42,7 @@ export class ListadoMedicoComponent implements OnInit, AfterViewInit {
         }
       },
       error: (e) => {
-        console.error('Error al obtener médicos:', e);
-        this._compartidoServicio.mostrarAlerta("Error al cargar médicos: " + e.message, "Error!");
+        this._compartidoServicio.mostrarAlerta("Error al cargar médicos: " + e.error.message, "Error!");
       }
     });
   }

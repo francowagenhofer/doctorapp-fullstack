@@ -1,5 +1,7 @@
 using API.Extensiones;
 using API.Middleware;
+using Data.Inicializador;
+using Microsoft.AspNetCore.Identity;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +21,7 @@ builder.Services.AgregarServiciosAplicacion(builder.Configuration);
 builder.Services.AgregarServiciosIdentidad(builder.Configuration);
 // -- Fin extensiones de servicios ---
 
+builder.Services.AddScoped<IdbInicializador, DbInicializador>();
 
 var app = builder.Build();
 
@@ -50,6 +53,23 @@ app.UseCors(x =>
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers();
+// Inicialización de la base de datos al iniciar la aplicación
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var loggerFactory = services.GetRequiredService<ILoggerFactory>();
+    try
+    {
+        var inicializador = services.GetRequiredService<IdbInicializador>();
+        inicializador.Inicializar();
+    }
+    catch (Exception ex)
+    {
+        var logger = loggerFactory.CreateLogger<Program>();
+        logger.LogError(ex, "Un Error ocurrio al ejecutar la migracion");
+    }
+}
 
+app.MapControllers();
 app.Run();
+

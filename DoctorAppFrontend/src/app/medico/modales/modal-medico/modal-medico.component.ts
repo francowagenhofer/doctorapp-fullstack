@@ -91,7 +91,7 @@ export class ModalMedicoComponent implements OnInit {
             this._compartidoServicio.mostrarAlerta("No se pudo crear el médico", "Error");
         },
         error: (e) => {
-          this._compartidoServicio.mostrarAlerta("Error al crear médico: " + e.message, "Error");
+          this._compartidoServicio.mostrarAlerta(e.error.message, "Error");
         }
       });
     }
@@ -106,7 +106,7 @@ export class ModalMedicoComponent implements OnInit {
             this._compartidoServicio.mostrarAlerta("No se pudo actualizar el médico", "Error");
         },
         error: (e) => {
-          this._compartidoServicio.mostrarAlerta("Error al actualizar médico: " + e.message, "Error");
+          this._compartidoServicio.mostrarAlerta(e.error.message, "Error");
         }
       });
     }

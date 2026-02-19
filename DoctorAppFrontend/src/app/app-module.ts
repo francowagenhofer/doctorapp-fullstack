@@ -1,18 +1,16 @@
-import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
-import { HttpClientModule, provideHttpClient, withInterceptors } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { UsuarioModule } from './usuario/usuario-module';
 import { EspecialidadModule } from './especialidad/especialidad-module';
 import { MedicoModule } from './medico/medico-module';
-import { authInterceptor } from './compartido/auth.interceptor';
+import { AuthInterceptor } from './interceptors/auth-interceptor';
 
 @NgModule({
-  declarations: [
-    App
-  ],
+  declarations: [App],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -22,9 +20,12 @@ import { authInterceptor } from './compartido/auth.interceptor';
     MedicoModule
   ],
   providers: [
-    provideBrowserGlobalErrorListeners(),
-    provideHttpClient(withInterceptors([authInterceptor]))
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [App]
 })
-export class AppModule { }
+export class AppModule {}

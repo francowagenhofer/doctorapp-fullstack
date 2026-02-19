@@ -4,8 +4,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ListadoEspecialidad } from '../especialidad/pages/listado-especialidad/listado-especialidad';
+import {} from '../especialidad/especialidad-module';
+import {} from '../medico/medico-module';
+import {} from '../usuario/usuario-module';
 import { ListadoMedicoComponent } from '../medico/pages/listado-medico/listado-medico.component';
+import { ListadoUsuarioComponent } from '../usuario/pages/listado-usuario/listado-usuario.component';
 import { authGuard } from '../_guards/auth-guard';
+import { ListadoPacienteComponent } from '../paciente/pages/listado-paciente/listado-paciente.component';
 
 const routes: Routes = [
   {
@@ -17,6 +22,8 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent, pathMatch: 'full' },
       { path: 'especialidades', component: ListadoEspecialidad, pathMatch: 'full' },
       { path: 'medicos', component: ListadoMedicoComponent, pathMatch: 'full' },
+      { path: 'usuarios', component: ListadoUsuarioComponent, pathMatch: 'full' },
+      { path: 'pacientes', component: ListadoPacienteComponent, pathMatch: 'full' },
       { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
     ]    
   }

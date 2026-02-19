@@ -1,4 +1,5 @@
 ﻿using Data.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Models.Entidades;
@@ -15,22 +16,27 @@ namespace Data.Servicios
     // El servicio de token se encarga de crear tokens JWT para la autenticación de usuarios 
     public class TokenServicio : ITokenServicio
     {
+        private readonly UserManager<UsuarioAplicacion> _userManager;
         private readonly SymmetricSecurityKey _key; // Esto sirve para almacenar la clave secreta utilizada para firmar el token
 
-        public TokenServicio(IConfiguration config)
+        public TokenServicio(IConfiguration config, UserManager<UsuarioAplicacion> userManager)
         {
             // La clave secreta se utiliza para firmar el token y debe ser segura
             // Esto sirve para obtener la clave secreta desde el archivo de configuración (appsettings.json)
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
+            _userManager = userManager;
         }
 
-        public string CrearToken(Usuario usuario) // Esto sirve para crear un token JWT para el usuario proporcionado
+        public async Task<string> CrearToken(UsuarioAplicacion usuario) // Esto sirve para crear un token JWT para el usuario proporcionado
         {
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.NameId, usuario.Username) 
+                new Claim(JwtRegisteredClaimNames.NameId, usuario.UserName) 
                 // esto sirve para agregar el nombre de usuario como un reclamo en el token
             };
+
+            var roles = await _userManager.GetRolesAsync(usuario);
+            claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature); 
             // Esto sirve para crear las credenciales de firma utilizando la clave secreta y el algoritmo HMAC SHA512

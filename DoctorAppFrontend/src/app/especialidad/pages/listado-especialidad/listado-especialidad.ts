@@ -67,11 +67,9 @@ export class ListadoEspecialidad implements OnInit, AfterViewInit {
         }
       },
       error: (e) => {
-        // Agregar log en consola para debugging
-        console.error('Error al obtener especialidades:', e);
         // Mostrar mensaje de error al usuario mediante snackbar
         // Esto es CRÍTICO: sin este manejo, los errores HTTP serían silenciosos
-        this._compartidoServicio.mostrarAlerta("Error al cargar especialidades: " + e.message, "Error!");
+        this._compartidoServicio.mostrarAlerta(e.error.message, "Error!");
       }
     });
   }

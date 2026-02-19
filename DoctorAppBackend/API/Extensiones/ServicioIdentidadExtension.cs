@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using Models.Entidades;
 
 namespace API.Extensiones
 {
@@ -12,6 +15,17 @@ namespace API.Extensiones
         {
             // Aquí puedes agregar servicios relacionados con la identidad, autenticación y autorización
             // Por ejemplo, puedes configurar Identity, JWT, políticas de autorización, etc.
+
+            servicios.AddIdentityCore<UsuarioAplicacion>(opt =>
+            {
+                opt.Password.RequireNonAlphanumeric = false;
+                opt.Password.RequireUppercase = false;
+                opt.Password.RequireLowercase = false;
+                opt.Password.RequiredLength = 6;
+            })
+                .AddRoles<RolAplicacion>()
+                .AddRoleManager<RoleManager<RolAplicacion>>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             // Configurar la autenticación con JWT Bearer 
             servicios.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -33,6 +47,14 @@ namespace API.Extensiones
                         ValidateAudience = false
                     };
                 });
+
+
+            servicios.AddAuthorization(o=>
+            {
+                o.AddPolicy("AdminRol", politica => politica.RequireRole("Admin"));
+                o.AddPolicy("AdminAgendadorRol", politica => politica.RequireRole("Admin", "Agendador"));
+                o.AddPolicy("AdminDoctorRol", politica => politica.RequireRole("Doctor"));
+            });
 
             return servicios;
         }

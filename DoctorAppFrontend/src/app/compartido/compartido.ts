@@ -26,15 +26,15 @@ export class Compartido {
 
   // metodo para guardar la sesion del usuario en el almacenamiento local
   guardarSesion(sesion: Sesion) {
-    localStorage.setItem('usuarioSesion', JSON.stringify(sesion)); // Guardar como cadena JSON
+    localStorage.setItem('usuarioSesion', JSON.stringify(sesion.username)); // Guardar como cadena JSON
   }
 
   // metodo para obtener la sesion del usuario desde el almacenamiento local
   obetenerSesion() {
     const sesionString = localStorage.getItem('usuarioSesion'); // Obtener la cadena JSON
-    const usuarioToken = JSON.parse(sesionString!); // Convertir de cadena JSON a objeto
+    const usuarioSesion = JSON.parse(sesionString!); // Convertir de cadena JSON a objeto
     
-    return usuarioToken;
+    return usuarioSesion;
   }
 
   // metodo para eliminar la sesion del usuario desde el almacenamiento local
